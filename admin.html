@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HenAi Admin - Usage & Costs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    header {
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #00d9ff, #0099ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .login-form {
+      max-width: 400px;
+      margin: 80px auto;
+      text-align: center;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      border-radius: 6px;
+      color: #e0e0e0;
+      font-size: 1em;
+    }
+
+    .login-form input:focus {
+      outline: none;
+      border-color: rgba(0, 217, 255, 0.5);
+      background: rgba(0, 217, 255, 0.05);
+    }
+
+    .login-form button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #00d9ff, #0099ff);
+      color: #0a0a0a;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(0, 217, 255, 0.3);
+    }
+
+    .content {
+      display: none;
+    }
+
+    .content.visible {
+      display: block;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), rgba(0, 153, 255, 0.03));
+      padding: 28px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 217, 255, 0.2);
+    }
+
+    .stat-label {
+      color: #7a8aaf;
+      font-size: 0.9em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .stat-value {
+      font-size: 2.2em;
+      font-weight: 800;
+      color: #00d9ff;
+      margin-bottom: 8px;
+    }
+
+    .stat-sub {
+      color: #a0a8d8;
+      font-size: 0.95em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+    }
+
+    table thead {
+      background: rgba(0, 217, 255, 0.08);
+      border-bottom: 2px solid rgba(0, 217, 255, 0.2);
+    }
+
+    table th {
+      padding: 16px;
+      text-align: left;
+      color: #00d9ff;
+      font-weight: 700;
+      font-size: 0.95em;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    table td {
+      padding: 16px;
+      border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+      color: #c0c8d8;
+    }
+
+    table tr:hover {
+      background: rgba(0, 217, 255, 0.05);
+    }
+
+    .add-form {
+      background: rgba(0, 217, 255, 0.05);
+      padding: 30px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      margin-bottom: 40px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-row input, .form-row select {
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      border-radius: 6px;
+      color: #e0e0e0;
+      font-size: 0.95em;
+    }
+
+    .form-row input:focus, .form-row select:focus {
+      outline: none;
+      border-color: rgba(0, 217, 255, 0.5);
+      background: rgba(0, 217, 255, 0.05);
+    }
+
+    .form-row button {
+      padding: 12px;
+      background: linear-gradient(135deg, #00d9ff, #0099ff);
+      color: #0a0a0a;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .form-row button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    }
+
+    .logout {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0, 217, 255, 0.2);
+    }
+
+    .logout button {
+      padding: 10px 24px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      color: #a0a8d8;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .logout button:hover {
+      background: rgba(0, 217, 255, 0.1);
+      color: #00d9ff;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      margin-bottom: 24px;
+      color: #fff;
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #00d9ff, #0099ff);
+      border-radius: 2px;
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🔐 HenAi Admin</h1>
+    </header>
+
+    <div class="login-form" id="loginForm">
+      <h2 style="text-align: center; margin-bottom: 30px;">Access Dashboard</h2>
+      <input 
+        type="password" 
+        id="passwordInput" 
+        placeholder="Enter password" 
+        onkeypress="if(event.key === 'Enter') login()"
+      >
+      <button onclick="login()">Unlock</button>
+    </div>
+
+    <div class="content" id="dashboard">
+      <div class="stats" id="statsContainer">
+        <div class="stat-card">
+          <div class="stat-label">Total Cost</div>
+          <div class="stat-value" id="totalCost">$0.00</div>
+          <div class="stat-sub">All models combined</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Tokens</div>
+          <div class="stat-value" id="totalTokens">0</div>
+          <div class="stat-sub">Input + Output</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Haiku Usage</div>
+          <div class="stat-value" id="haikuCost">$0.00</div>
+          <div class="stat-sub" id="haikuTokens">0 tokens</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Sonnet Usage</div>
+          <div class="stat-value" id="sonnetCost">$0.00</div>
+          <div class="stat-sub" id="sonnetTokens">0 tokens</div>
+        </div>
+      </div>
+
+      <h2>Add Usage</h2>
+      <div class="add-form">
+        <div class="form-row">
+          <select id="modelSelect">
+            <option value="haiku">Haiku</option>
+            <option value="sonnet">Sonnet</option>
+            <option value="opus">Opus</option>
+          </select>
+          <input type="number" id="inputTokens" placeholder="Input tokens" min="0">
+          <input type="number" id="outputTokens" placeholder="Output tokens" min="0">
+          <button onclick="addUsage()">Add</button>
+        </div>
+      </div>
+
+      <h2>Usage History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Input Tokens</th>
+            <th>Output Tokens</th>
+            <th>Cost</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="usageTable">
+          <tr>
+            <td colspan="6" style="text-align: center; color: #7a8aaf;">No usage yet</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Pricing (Anthropic Haiku 4.5)
+    const pricing = {
+      haiku: { input: 0.80, output: 4.00 }, // per million tokens
+      sonnet: { input: 3.00, output: 15.00 },
+      opus: { input: 15.00, output: 75.00 }
+    };
+
+    function login() {
+      const password = document.getElementById('passwordInput').value;
+      if (password === 'hhcostshh') {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('dashboard').classList.add('visible');
+        loadUsage();
+      } else {
+        alert('Wrong password');
+        document.getElementById('passwordInput').value = '';
+      }
+    }
+
+    function logout() {
+      document.getElementById('loginForm').style.display = 'block';
+      document.getElementById('dashboard').classList.remove('visible');
+      document.getElementById('passwordInput').value = '';
+    }
+
+    function addUsage() {
+      const model = document.getElementById('modelSelect').value;
+      const inputTokens = parseInt(document.getElementById('inputTokens').value) || 0;
+      const outputTokens = parseInt(document.getElementById('outputTokens').value) || 0;
+
+      if (inputTokens === 0 && outputTokens === 0) {
+        alert('Enter at least some tokens');
+        return;
+      }
+
+      const usage = JSON.parse(localStorage.getItem('henai_usage') || '[]');
+      usage.push({
+        model,
+        input: inputTokens,
+        output: outputTokens,
+        date: new Date().toLocaleString()
+      });
+      localStorage.setItem('henai_usage', JSON.stringify(usage));
+
+      document.getElementById('modelSelect').value = 'haiku';
+      document.getElementById('inputTokens').value = '';
+      document.getElementById('outputTokens').value = '';
+
+      loadUsage();
+    }
+
+    function deleteUsage(index) {
+      const usage = JSON.parse(localStorage.getItem('henai_usage') || '[]');
+      usage.splice(index, 1);
+      localStorage.setItem('henai_usage', JSON.stringify(usage));
+      loadUsage();
+    }
+
+    function loadUsage() {
+      const usage = JSON.parse(localStorage.getItem('henai_usage') || '[]');
+      const tbody = document.getElementById('usageTable');
+      
+      if (usage.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #7a8aaf;">No usage yet</td></tr>';
+        updateStats([]);
+        return;
+      }
+
+      tbody.innerHTML = usage.map((u, i) => {
+        const cost = calculateCost(u.model, u.input, u.output);
+        return `
+          <tr>
+            <td><strong style="color: #00d9ff;">${u.model}</strong></td>
+            <td>${u.input.toLocaleString()}</td>
+            <td>${u.output.toLocaleString()}</td>
+            <td style="color: #00d9ff; font-weight: 600;">$${cost.toFixed(4)}</td>
+            <td style="font-size: 0.9em; color: #7a8aaf;">${u.date}</td>
+            <td><button onclick="deleteUsage(${i})" style="padding: 6px 12px; background: rgba(255, 100, 100, 0.2); border: 1px solid rgba(255, 100, 100, 0.3); color: #ff6464; border-radius: 4px; cursor: pointer;">Delete</button></td>
+          </tr>
+        `;
+      }).join('');
+
+      updateStats(usage);
+    }
+
+    function calculateCost(model, input, output) {
+      const p = pricing[model];
+      return (input * p.input + output * p.output) / 1000000;
+    }
+
+    function updateStats(usage) {
+      let totalCost = 0;
+      let totalTokens = 0;
+      let haikuCost = 0, haikuTokens = 0;
+      let sonnetCost = 0, sonnetTokens = 0;
+
+      usage.forEach(u => {
+        const cost = calculateCost(u.model, u.input, u.output);
+        totalCost += cost;
+        totalTokens += u.input + u.output;
+
+        if (u.model === 'haiku') {
+          haikuCost += cost;
+          haikuTokens += u.input + u.output;
+        } else if (u.model === 'sonnet') {
+          sonnetCost += cost;
+          sonnetTokens += u.input + u.output;
+        }
+      });
+
+      document.getElementById('totalCost').textContent = '$' + totalCost.toFixed(2);
+      document.getElementById('totalTokens').textContent = totalTokens.toLocaleString();
+      document.getElementById('haikuCost').textContent = '$' + haikuCost.toFixed(2);
+      document.getElementById('haikuTokens').textContent = haikuTokens.toLocaleString() + ' tokens';
+      document.getElementById('sonnetCost').textContent = '$' + sonnetCost.toFixed(2);
+      document.getElementById('sonnetTokens').textContent = sonnetTokens.toLocaleString() + ' tokens';
+    }
+
+    // Check if already logged in (for refresh)
+    if (localStorage.getItem('henai_admin_session')) {
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('dashboard').classList.add('visible');
+      loadUsage();
+    }
+  </script>
+</body>
+</html>
