@@ -26,8 +26,8 @@ export default function Stats() {
           transition={{ duration: 0.4, delay: i * 0.1 }}
           className="text-center"
         >
-          <div className="text-3xl font-bold text-blue-600">{stat.value}</div>
-          <div className="text-sm text-slate-600">{stat.label}</div>
+          <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">{stat.value}</div>
+          <div className="text-sm text-gray-400">{stat.label}</div>
         </motion.div>
       ))}
     </motion.div>

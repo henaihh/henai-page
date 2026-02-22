@@ -52,26 +52,26 @@ export default function Roadmap() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: i * 0.15 }}
         >
-          <Card className="hover:shadow-lg transition-shadow duration-300">
+          <Card className="glass-effect hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 border-white/10">
             <CardHeader>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-semibold text-blue-600">{item.phase}</span>
+                <span className="text-sm font-semibold text-blue-400">{item.phase}</span>
                 <span
                   className={`text-xs px-3 py-1 rounded-full ${
                     item.status === 'In Progress'
-                      ? 'bg-blue-100 text-blue-700'
-                      : 'bg-slate-100 text-slate-600'
+                      ? 'bg-blue-500/20 text-blue-400'
+                      : 'bg-gray-500/20 text-gray-400'
                   }`}
                 >
                   {item.status}
                 </span>
               </div>
-              <CardTitle className="text-xl">{item.title}</CardTitle>
+              <CardTitle className="text-xl text-white">{item.title}</CardTitle>
               <CardDescription>
                 <ul className="mt-4 space-y-2">
                   {item.items.map((task) => (
-                    <li key={task} className="flex items-center gap-2 text-sm">
-                      <span className="text-slate-400">•</span>
+                    <li key={task} className="flex items-center gap-2 text-sm text-gray-400">
+                      <span className="text-gray-600">•</span>
                       <span>{task}</span>
                     </li>
                   ))}
