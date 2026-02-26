@@ -372,7 +372,7 @@ export default function Home() {
             </Link>
           </div>
           <p className="text-gray-500 text-sm">
-            Next.js 14 • Framer Motion • shadcn/ui • Tailwind CSS
+            Next.js 14 • Framer Motion • shadcn/ui • Tailwind CSS • Back online 🐾
           </p>
         </div>
       </footer>
