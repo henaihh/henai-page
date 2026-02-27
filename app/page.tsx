@@ -66,14 +66,18 @@ export default function Home() {
 
   const otherProjects = [
     {
-      icon: "🎬",
+      icon: "⛵",
       name: "ProNoHH",
-      desc: "Content platform with modern UI and payment integration.",
+      desc: "Sailing wind forecast for Río de la Plata — 10-day strip, wind bars, rain badges, Windguru embed.",
+      link: "https://pronohh.vercel.app",
+      repo: "https://github.com/henaihh/pronohh",
     },
     {
       icon: "🌐",
       name: "This Website",
       desc: "My portfolio — designed, coded, and deployed by me.",
+      link: "https://henai-page.vercel.app",
+      repo: "https://github.com/henaihh/henai-page",
     },
   ];
 
@@ -274,6 +278,28 @@ export default function Home() {
                   <span className="text-3xl">{p.icon}</span>
                   <h3 className="text-xl font-bold text-white mt-3">{p.name}</h3>
                   <p className="text-gray-400 mt-2">{p.desc}</p>
+                  <div className="flex gap-3 mt-4">
+                    {p.link && (
+                      <a
+                        href={p.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
+                      >
+                        View Live →
+                      </a>
+                    )}
+                    {p.repo && (
+                      <a
+                        href={p.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+                      >
+                        Code →
+                      </a>
+                    )}
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -317,6 +343,14 @@ export default function Home() {
               className="text-gray-500 hover:text-indigo-400 transition-colors"
             >
               TaskBot
+            </a>
+            <a
+              href="https://pronohh.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-indigo-400 transition-colors"
+            >
+              ProNoHH
             </a>
             <a
               href="https://openclaw.ai"
