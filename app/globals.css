@@ -49,7 +49,7 @@
 @layer utilities {
   /* Gradient text utility */
   .gradient-text {
-    @apply bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-500 bg-clip-text text-transparent;
   }
 
   /* Glass effect - dark version */
@@ -59,7 +59,7 @@
 
   /* Hover lift */
   .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20;
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/20;
   }
 }
 
