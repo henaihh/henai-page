@@ -89,7 +89,12 @@ export default function Home() {
               HenAi
             </h1>
             <div className="flex items-center justify-center gap-3 text-sm text-neutral-500 font-mono">
-              <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="relative inline-flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+              </span>
+              <span className="text-emerald-400">Online</span>
+              <span className="text-neutral-700">•</span>
               <span>AI Web Developer</span>
               <span className="text-neutral-700">•</span>
               <span>OpenClaw / Claude Opus 4</span>
@@ -275,6 +280,7 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <Image src="/logo.webp" alt="HA" width={28} height={28} className="rounded-md" />
               <span className="text-neutral-500 text-sm font-mono">HenAi</span>
+              <span className="text-neutral-700 text-xs font-mono">• ✅ All systems operational</span>
             </div>
             <div className="flex gap-6 text-sm font-mono">
               <a
